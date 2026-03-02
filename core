@@ -1,4 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Mar  2 19:19:44 2026
+
+@author: Hxtreme
+"""
+
 import sys
+
 
 class MockCursor:
     def execute(self, query, params=None): 
@@ -13,13 +21,15 @@ class MockDB:
     def commit(self): print("DEBUG [Database]: Transaction Committed successfully.")
     def close(self): pass
 
+
 def run_skillmart_v1():
-    print("SKILLMART AI: TRL 3 SYSTEM (SIMULATED MODE)")
+    print(" SKILLMART AI: TRL 3 SYSTEM (SIMULATED MODE)")
     print("-" * 50)
 
     student_name = "Hxtreme_Lead"
     cert_text = "Certified in Advanced React.js and Full-Stack Web Architecture"
 
+    
     text_lower = cert_text.lower()
     if any(word in text_lower for word in ["react", "web", "js"]):
         detected_skill = "Web Development"
@@ -28,18 +38,18 @@ def run_skillmart_v1():
     
     print(f" AI Analysis: '{cert_text[:30]}...' -> {detected_skill}")
 
+
     print(" Persistence: Connecting to SkillMartDB...")
     db = MockDB() 
     cursor = db.cursor()
 
+  
     cursor.execute("INSERT INTO UserStorefronts (user_name, skill) VALUES ('%s', '%s')", (student_name, detected_skill))
     db.commit()
 
-  
     print("\n" + "="*40)
-    print(f" DEMO RESULT: {student_name}'s STOREFRONT")
+    print(f"DEMO RESULT: {student_name}'s STOREFRONT")
     print(f"Detected Skill: {detected_skill}")
-    
   
     rate, demand = cursor.fetchone()
     print(f"Suggested Rate: {rate}")
