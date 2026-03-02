@@ -1,7 +1,5 @@
 import sys
 
-# --- THE HACKATHON WORKAROUND: MOCK DATABASE CONNECTOR ---
-# This class mimics the behavior of mysql.connector so your logic still runs!
 class MockCursor:
     def execute(self, query, params=None): 
         print(f"DEBUG [SQL Execution]: {query % params if params else query}")
@@ -15,7 +13,6 @@ class MockDB:
     def commit(self): print("DEBUG [Database]: Transaction Committed successfully.")
     def close(self): pass
 
-# --- THE MAIN LOGIC (TRL 3 Verified) ---
 def run_skillmart_v1():
     print("SKILLMART AI: TRL 3 SYSTEM (SIMULATED MODE)")
     print("-" * 50)
@@ -23,7 +20,6 @@ def run_skillmart_v1():
     student_name = "Hxtreme_Lead"
     cert_text = "Certified in Advanced React.js and Full-Stack Web Architecture"
 
-    # AI CLASSIFICATION LOGIC
     text_lower = cert_text.lower()
     if any(word in text_lower for word in ["react", "web", "js"]):
         detected_skill = "Web Development"
@@ -32,21 +28,19 @@ def run_skillmart_v1():
     
     print(f" AI Analysis: '{cert_text[:30]}...' -> {detected_skill}")
 
-    # DATABASE LOGIC (Using our Mock objects)
     print(" Persistence: Connecting to SkillMartDB...")
     db = MockDB() 
     cursor = db.cursor()
 
-    # Save data logic
     cursor.execute("INSERT INTO UserStorefronts (user_name, skill) VALUES ('%s', '%s')", (student_name, detected_skill))
     db.commit()
 
-    # Market Valuation logic
+  
     print("\n" + "="*40)
     print(f" DEMO RESULT: {student_name}'s STOREFRONT")
     print(f"Detected Skill: {detected_skill}")
     
-    # This imitates the JOIN we wanted to do
+  
     rate, demand = cursor.fetchone()
     print(f"Suggested Rate: {rate}")
     print(f"Market Demand: {demand}")
