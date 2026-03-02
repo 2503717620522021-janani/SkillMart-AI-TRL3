@@ -1,15 +1,13 @@
 
--- SkillMart AI: Database Schema (TRL 3 Validation)
--- Purpose: Setup the Relational Mapping for AI-detected skills to Market Value.
 
 CREATE DATABASE IF NOT EXISTS SkillMartDB;
 USE SkillMartDB;
 
--- Clean start for Demo
+
 DROP TABLE IF EXISTS UserStorefronts;
 DROP TABLE IF EXISTS MarketRates;
 
--- Table to store global market price standards
+
 CREATE TABLE MarketRates (
     id INT AUTO_INCREMENT PRIMARY KEY,
     skill_name VARCHAR(100) UNIQUE,
@@ -17,7 +15,6 @@ CREATE TABLE MarketRates (
     demand_level VARCHAR(50)
 );
 
--- Table to store AI-processed user results
 CREATE TABLE UserStorefronts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(100),
@@ -26,12 +23,11 @@ CREATE TABLE UserStorefronts (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Initial Market Data Seed
 INSERT INTO MarketRates (skill_name, avg_price, demand_level) VALUES 
 ('Machine Learning', '₹3500/hr', 'Critical'),
 ('Web Development', '₹1800/hr', 'High'),
 ('Data Analysis', '₹2000/hr', 'High'),
 ('UI/UX Design', '₹1200/hr', 'Steady');
 
--- Verify setup for the judge
+
 SELECT * FROM MarketRates;
